@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.108.0">
+    <title>बैगा स्वास्थ्य परीक्षण शिविर</title>
+    <link rel="icon" type="image/x-icon" href="../template/assets/images/cg-govt.png">
+
+<link href="../template/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+</style>
+    <link href="../template/checkout.css" rel="stylesheet">
+
+    
+    <!-- Custom styles for this template -->
+    <link href="../template/dashboard.css" rel="stylesheet">
+  </head>
+  <body>
+    
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-3 me-0 px-3 fs-6" href="#"><img src="../template/assets/images/cg-govt.png" class="mx-2" height="30" width="30">बैगा स्वास्थ्य परीक्षण शिविर</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search"> -->
+  <?php if(isset($_SESSION['name'])){?>
+  <div class="navbar-nav flex-row px-3">
+
+    <div class="nav-item ">
+        <a class="nav-link" href="patientListngAtPSK.php" aria-current="page">
+            Patient List
+        </a>
+    </div>
+    <div class="nav-item mx-3">
+        <a class="nav-link" aria-current="page">
+            |
+        </a>
+    </div>
+    <div class="nav-item">
+        <a class="nav-link" aria-current="page">
+            LoggedIn As: PSC
+        </a>
+    </div>
+    <div class="nav-item mx-3">
+        <a class="nav-link" aria-current="page">
+            |
+        </a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link" aria-current="page" href="logout.php">
+          Logout
+      </a>
+    </div>
+  </div>
+  <?php } ?>
+</header>
+    
+<div class="container-fluid">
+  <div class="row">
+  <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
+    <div class="row g-5 justify-content-center pt-1">
+      <div class="col-md-6 col-lg-7" style="box-shadow: 0 4px 25px -4px #9da5ab; ">
+        <h4 class="mb-3 text-center">विशेष रूप से कमजोर जनजाति समूह बैगा का स्वास्थ्य परीक्षण शिविर</h4>
+        <hr class="my-4">
+        <form enctype=multipart/form-data class="needs-validation addfrm" id="addfrm" action="add.php" novalidate method = "POST">
+          <div class="row g-3">
+            <div class="col-12">
+              <label for="name" class="form-label">नाम *</label>
+              <input type="text" class="form-control formVal" id="name" name="name" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                required.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="age" class="form-label">उम्र *</label>
+              <input type="text" class="form-control formVal" id="age" name="age" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                required.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="father_husbandName" class="form-label">पिता/पति का नाम</label>
+                <input type="text" class="form-control formVal" id="father_husbandName" name="father_husbandName" placeholder="">
+                <div class="invalid-feedback">
+                  required.
+                </div>
+            </div>
+
+            <div class="col-12">
+              <label for="mother" class="form-label">माता का नाम</label>
+              <input type="text" class="form-control formVal" id="mother" name="mother" placeholder="">
+              <div class="invalid-feedback">
+                required.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="weight" class="form-label">वजन</label>
+              <input type="text" class="form-control formVal" id="weight" name="weight" placeholder="">
+              <div class="invalid-feedback">
+              required.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="height" class="form-label">ऊचाई</label>
+              <input type="text" class="form-control formVal" id="height" name="height" placeholder="">
+            </div>
+
+            <div class="col-12">
+              <label for="sex" class="form-label">लिंग *</label>
+              <select class="form-select formVal" id="sex" name="sex" required>
+                <option value="">Choose...</option>
+                <option value="male">Male</option>
+                <option value="male">Female</option>
+                <option value="other">Other</option>
+              </select>
+              <div class="invalid-feedback">
+                required.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="aadhar" class="form-label">आधार कार्ड नंबर </label>
+              <input type="text" class="form-control formVal"  id="aadhar" name="aadhar" placeholder="">
+            </div>
+
+            <div class="col-12">
+              <label for="mobile" class="form-label">मोबाइल नंबर</label>
+              <input type="text" class="form-control formVal" id="mobile" name="mobile" placeholder="">
+            </div>
+
+            <div class="col-12">
+              <label for="tahsil" class="form-label">तहसील *</label>
+              <select class="form-select formVal" id="tahsil" name="tahsil" required>
+                <option value="">Choose...</option>
+                <option value="kawardha">कवर्धा</option>
+                <option value="bodla">बोडला</option>
+                <option value="pandariya">पंडरिया</option>
+                <option value="saLohara">स लोहारा</option>
+              </select>
+              <div class="invalid-feedback">
+                required.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="hitgrahAddress" class="form-label">हितग्राही का पूरा पता</label>
+              <input type="text" class="form-control formVal" id="hitgrahAddress" name="hitgrahAddress" placeholder="">
+            </div>
+
+            <div class="col-12">
+              <label for="vibhag" class="form-label">विभाग का नाम *</label>
+              <select class="form-select formVal" id="vibhag" name="vibhag" required>
+                <option value="">Choose...</option>
+                <option value="child">बाल रोग</option>
+                <option value="gynecology">स्त्री रोग</option>
+                <option value="orthopedic">हड्डी रोग</option>
+                <option value="eye">नेत्र रोग</option>
+                <option value="medicine">मेडिसिन</option>
+                <option value="neurology">न्यूरोलॉजी</option>
+                <option value="ENT">ENT</option>
+                <option value="generalSurgery">General Surgery</option>
+                <option value="other">अन्य</option>
+              </select>
+              <div class="invalid-feedback">
+                required.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="anyaRog" class="form-label">अन्य रोग का विवरण दे </label>
+              <input type="text" class="form-control formVal" id="anyaRog" name="anyaRog" placeholder="">
+            </div>
+
+            <div class="col-12">
+              <label for="patientStatus" class="form-label">मरीज की स्थिति *</label>
+              <select class="form-select formVal" id="patientStatus" name="patientStatus" required>
+                <option value="">Choose...</option>
+                <option value="Treated at camp">शिविर में ही इलाज हो गया .</option>
+                <option value="Treated at PSK">प्राथमिक स्वास्थ्य केंद्र में ही इलाज हो गया.</option>
+                <option value="Sent to DH">जिला अस्पताल भेंजे</option>
+              </select>
+              <div class="invalid-feedback">
+                required.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="otherDetials" class="form-label">Prescription * (Format : jpg/jpeg/png/pdf)</label>
+              <input type="file" class="form-control formVal" accept="application/pdf,image/*" multiple  name="prescription[]" id="prescription" required>
+            </div>
+
+          </div>
+
+          <div class="d-flex justify-content-end mb-5">
+            <button class="btn btn-light btn-sm mt-5" onclick="location.reload();" style="margin-right:10px;">Cancel</button>
+            <button class="btn btn-primary btn-sm mt-5" type="submit" >Submit</button>
+        </div>
+        </form>
+      </div>
+    </div>
+      <div class="col-md-6 col-lg-7" id="printDiv" style="box-shadow: 0 4px 25px -4px #9da5ab; display:none; ">
+          <h4 class="mb-3 text-center">विशेष रूप से कमजोर जनजाति समूह बैगा का स्वास्थ्य परीक्षण शिविर</h4>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th scope="row">नाम  :</th>
+                <td><span id="printName"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">उम्र :</th>
+                <td><span id="printAge"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">पिता/पति का नाम :</th>
+                <td colspan="2"><span id="printfather_husbandName"></span></td>
+              </tr>
+
+              <tr>
+                <th scope="row">माता का नाम :</th>
+                <td colspan="2"><span id="printmother"></span></td>
+              </tr>
+
+              <tr>
+                <th scope="row">वजन :</th>
+                <td colspan="2"><span id="printweight"></span></td>
+              </tr>
+
+              <tr>
+                <th scope="row">ऊचाई :</th>
+                <td colspan="2"><span id="printheight"></span></td>
+              </tr>
+
+              <tr>
+                <th scope="row">लिंग :</th>
+                <td colspan="2"><span id="printSex"></span></td>
+              </tr>
+
+              <tr>
+                <th scope="row">आधार कार्ड नंबर  :</th>
+                <td colspan="2"><span id="printAadhar"></span></td>
+              </tr>
+
+              <tr>
+                <th scope="row">मोबाइल नंबर :</th>
+                <td colspan="2"><span id="printMobile"></span></td>
+              </tr>
+
+              <tr>
+                <th scope="row">तहसील :</th>
+                <td colspan="2"><span id="printTahsil"></span></td>
+              </tr>
+
+              <tr>
+                <th scope="row">हितग्राही का पूरा पता :</th>
+                <td colspan="2"><span id="printhitgrahiAddress"></span></td>
+              </tr>
+
+              <tr>
+                <th scope="row">विभाग का नाम :</th>
+                <td colspan="2"><span id="printvibhag"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">अन्य रोग का विवरण :</th>
+                <td colspan="2"><span id="printanyaRog"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">मरीज की स्थिति :</th>
+                <td colspan="2"><span id="printpatientStatus"></span></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </main>
+  </div>
+</div>
+     
+      <script src="../template/jquery-3.6.3.min.js"></script>
+      <script src="../template/assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous">
+
+      </script>
+      <script src="../template/checkout.js" ></script>
+
+  </body>
+</html>
