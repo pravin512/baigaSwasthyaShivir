@@ -50,6 +50,7 @@ function add_data()
         
     // }
 
+    document.getElementById('printRegistrationNo').innerText = document.getElementById('registrationNo').value;
     document.getElementById('printName').innerText = document.getElementById('name').value;
     document.getElementById('printAge').innerText = document.getElementById('age').value;
     document.getElementById('printfather_husbandName').innerText = document.getElementById('father_husbandName').value;
@@ -64,6 +65,7 @@ function add_data()
     document.getElementById('printvibhag').innerText = document.getElementById('vibhag').value;
     document.getElementById('printanyaRog').innerText = document.getElementById('anyaRog').value;
     document.getElementById('printpatientStatus').innerText = document.getElementById('patientStatus').value;
+    document.getElementById('printPatientStatusOther').innerText = document.getElementById('patientStatusOther').value;
     // console.log(formData);
     $.ajax({
       method:"POST",
@@ -124,4 +126,45 @@ function clearvalue()
     // jQuery("#preloader").remove(); 
     window.location = window.location.href;
     
+}
+
+$('#patientStatus').on('change', ()=>{
+  if(document.getElementById('patientStatus').value == "other")
+  {
+    $('#patientStatusOtherDiv').removeClass("d-none");
+    $("#patientStatusOther").prop('required',true);
+
+  }else{
+    if(!$('#patientStatusOtherDiv').hasClass("d-none"))
+    {
+      $('#patientStatusOtherDiv').addClass("d-none");
+    }
+    $("#patientStatusOther").prop('required',false);
+    
+  }
+});
+
+$("#registrationNo").focusout(function(){
+
+  validate_registration_number();
+  return false;
+  
+});
+
+function validate_registration_number()
+{
+  var validateUrl = "validate_registration_no.php?registrationNo="+$(this).val();
+
+  if($(this).val() != "")
+  {
+    $.ajax({url: validateUrl, success: function(result){
+        if(result)
+        {
+          alert("duplicate registration number");
+          document.getElementById('registrationNo').value = "";
+        }
+        
+    }});
+  }
+  return false;
 }

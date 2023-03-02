@@ -3,68 +3,81 @@
         require 'config/database.php';
         require 'includes/config.php';
         require 'includes/functions.php';
+        require 'includes/constants.php';
+
+        $limit = 100;  
+        $total_pages = 0;
+        if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
+        $start_from = ($page-1) * $limit;  
+
+        $patientStatusOptions = '';
+        foreach($patientStatus[$_SESSION["role"]] as $k => $val) {
+          $patientStatusOptions .= '<option value="'.$k.'">'.$val.'.</option>';
+        }
+
+        $vibhagOptions = '';
+        foreach($vibhags as $k => $val) {
+          $vibhagOptions .= '<option value="'.$k.'">'.$val.'.</option>';
+        }
+
+        $tahsilsOptions = '';
+        foreach($tahsils as $k => $val) {
+          $tahsilsOptions .= '<option value="'.$k.'">'.$val.'.</option>';
+        }
 
         if(!isset($_SESSION['username']))
         {
           header('Location: login.php');
           die();
         }
-        
-        $sql="SELECT * FROM `patient_data` WHERE `patientStatus` != 'Treated at camp' AND `patientStatus` != 'Treated at PSK' ORDER BY updated_at DESC";
-        
+
+        $total_Count_sql = "SELECT COUNT(`id`) FROM `patient_data`";
+
+        if($_SESSION['role'] == 'DH')
+        {
+          $sql="SELECT * FROM `patient_data` WHERE `patientStatus` IN ('DHTADH', 'PSKSTDH') ORDER BY updated_at DESC LIMIT $start_from, $limit";
+          
+          $total_Count_sql = "SELECT COUNT(`id`) FROM `patient_data` WHERE `patientStatus` IN ('DHTADH', 'PSKSTDH')";
+        }
+        if($_SESSION['role'] == 'ACT')
+        {
+          $sql="SELECT * FROM `patient_data` WHERE 1 ORDER BY updated_at DESC LIMIT $start_from, $limit";
+          
+          // $sql="SELECT * FROM `patient_data` WHERE `patientStatus` IN ('ACTTAHC', 'ACTOTH', 'DHSTHC', 'PSKSTHC') ORDER BY updated_at DESC";
+        }
+        if($_SESSION['role'] == 'PHC')
+        {
+          $sql="SELECT * FROM `patient_data` WHERE `patientStatus` IN ('PSKTAC', 'PSKTAPSC') AND `tahsil` = '".$_SESSION['tahsil']."' ORDER BY updated_at DESC LIMIT $start_from, $limit";
+          $total_Count_sql = "SELECT COUNT(`id`) FROM `patient_data` WHERE `patientStatus` IN ('PSKTAC', 'PSKTAPSC') AND `tahsil` = '".$_SESSION['tahsil']."'";
+        }
+
         $result=mysqli_query($con,$sql);
         $row=mysqli_fetch_all($result,MYSQLI_ASSOC);
 
-        $patentStatusArray = ["Treated at camp"=>"शिविर में ही इलाज हो गया", "Sent to DH"=>"जिला अस्पताल भेजा गया", "TreatedAtDH"=>"जिला अस्पताल में ही इलाज हो गया", "other"=>"ट्रांसफर अन्य", "none"=>'N/A'];
+        $rs_result = mysqli_query($con, $total_Count_sql);  
+        $total_row = mysqli_fetch_all($rs_result);  
+        
+        $total_records = $total_row[0][0];  
 
-        $vibhag = ['child'=>'बाल रोग', 'gynecology'=>'स्त्री रोग', 'orthopedic'=>'हड्डी रोग', 'eye'=>'नेत्र रोग', 'medicine'=>'मेडिसिन', 'neurology'=>'न्यूरोलॉजी', 'ENT'=>'ENT', 'generalSurgery'=>'generalSurgery', 'other'=>'other'];
-        $tahsil = ['kawardha'=>'कवर्धा', 'bodla'=>'बोडला', 'pandariya'=>'पंडरिया', 'saLohara'=>'स. लोहारा'];
+        $total_pages = ceil($total_records / $limit); 
+
+
         $trow = ``;
+
         foreach($row as $value)
         {
-            if($value['patientStatus'] == "Treated at camp")
-            {
-              $treatedATCamp = '<option value="Treated at camp" selected>शिविर में ही इलाज हो गया .</option>';
-            }else{
-              $treatedATCamp = '<option value="Treated at camp">शिविर में ही इलाज हो गया .</option>';
-            }
 
-            if($value['patientStatus'] == "Sent to DH")
-            {
-              $sentToDH = '<option value="Sent to DH" selected>जिला अस्पताल भेजा गया.</option>';
-            }else{
-              $sentToDH = '<option value="Sent to DH">जिला अस्पताल भेजा गया.</option>';
-            }
-
-            if($value['patientStatus'] == "TreatedAtDH")
-            {
-              $treatedATDH = '<option value="TreatedAtDH" selected>जिला अस्पताल में ही इलाज हो गया.</option>';
-            }else{
-              $treatedATDH = '<option value="TreatedAtDH">जिला अस्पताल में ही इलाज हो गया.</option>';
-            }
-
-            if($value['patientStatus'] == "other")
-            {
-              $other = '<option value="other" selected>ट्रांसफर अन्य.</option>';
-            }else{
-              $other = '<option value="other">ट्रांसफर अन्य.</option>';
-            }
-
-
-            
-            $patientStatusSelect = '<select class="patientStatus" id="filterpatientStatus" name="patientStatus" required style="font-size:10px;">
-                                      <option value="">मरीज की स्थिति</option>
-                                      '.$treatedATCamp.$sentToDH.$treatedATDH.$other.'
-                                    </select>';
-            
             $modalbutton = '';
             if($value['prescription'] != '')
             {
-              $modalbutton .= '<a href="javascript:void(0);" class="showPSKImage" data-toggle="modal" data-target="#PSKPrescriptionModal" data-imagepath="'.$value['prescription'].'">PSC Prescription</a>';
+              $modalbutton .= '<a href="javascript:void(0);" class="showPSKImage" data-toggle="modal" data-target="#PSKPrescriptionModal" data-imagepath="'.$value['prescription'].'">PHC Prescription</a>';
             }
 
-            $updateButton = '<a href="javascript:void(0);" data-toggle="modal" data-target="#UpdateDetailModal" class="update-prescription" data-id="'.$value['id'].'" data-name="'.$value['name'].'"  data-weight="'.$value['weight'].'"  data-height="'.$value['height'].'">Update</a>';
-
+            $updateButton = '';
+            if($_SESSION['role'] == 'DH')
+            {
+              $updateButton = '<a href="javascript:void(0);" data-toggle="modal" data-target="#UpdateDetailModal" class="update-prescription" data-id="'.$value['id'].'" data-name="'.$value['name'].'"  data-weight="'.$value['weight'].'"  data-height="'.$value['height'].'">Update</a>';
+            }
             $viewDHPrescription = '';
 
             if($value['DH_prescription'] != '')
@@ -73,226 +86,91 @@
             }
 
             $tr = "<tr>";
+            $tr .= "<td>".$value['registration_number']."</td>";
             $tr .= "<td>".$value['name']."</td>";
             $tr .= "<td>".$value['age']."</td>";
             // $tr .= "<td>".$value['fatherHusband']."</td>";
             // $tr .= "<td>".$value['mother']."</td>";
-            $tr .= "<td>".$value['weight']."</td>";
-            $tr .= "<td>".$value['height']."</td>";
+            // $tr .= "<td>".$value['weight']."</td>";
+            // $tr .= "<td>".$value['height']."</td>";
             $tr .= "<td>".$value['sex']."</td>";
             // $tr .= "<td>".$value['aadhar']."</td>";
             $tr .= "<td>".$value['mobile']."</td>";
-            $tr .= "<td>".$tahsil[$value['tahsil']]."</td>";
+            $tr .= "<td>".$tahsils[$value['tahsil']]."</td>";
             // $tr .= "<td>".$value['address']."</td>";
-            $tr .= "<td>".$vibhag[$value['vibhag']]."</td>";
+            $tr .= "<td>".$vibhags[$value['vibhag']]."</td>";
             
-            $tr .= "<td>".$patentStatusArray[$value['patientStatus']]."</td>";
+            $tr .= "<td>".$patientStatusForListing[$value['patientStatus']]."</td>";
             $tr .= "<td>".$value['created_at']."</td>";
             $tr .= "<td> <div style='display:flex; flex-direction:column; font-size:10px;'>".$modalbutton.$updateButton.$viewDHPrescription."</div></td>";
             $tr .= "<tr>";
             $trow .= $tr;
         }
 
-    $content = '<!doctype html>
-    <html lang="en">
-    
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-        <meta name="generator" content="Hugo 0.108.0">
-        <title>बैगा स्वास्थ्य परीक्षण शिविर</title>
-        <link rel="icon" type="image/x-icon" href="../template/assets/images/cg-govt.png">
-    
-    <link href="../template/assets/css/bootstrap.min.css" rel="stylesheet">
-    
-        <style>
-          .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-          }
-    
-          @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-              font-size: 3.5rem;
-            }
-          }
-    
-          .b-example-divider {
-            height: 3rem;
-            background-color: rgba(0, 0, 0, .1);
-            border: solid rgba(0, 0, 0, .15);
-            border-width: 1px 0;
-            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-          }
-    
-          .b-example-vr {
-            flex-shrink: 0;
-            width: 1.5rem;
-            height: 100vh;
-          }
-    
-          .bi {
-            vertical-align: -.125em;
-            fill: currentColor;
-          }
-    
-          .nav-scroller {
-            position: relative;
-            z-index: 2;
-            height: 2.75rem;
-            overflow-y: hidden;
-          }
-    
-          .nav-scroller .nav {
-            display: flex;
-            flex-wrap: nowrap;
-            padding-bottom: 1rem;
-            margin-top: -1px;
-            overflow-x: auto;
-            text-align: center;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-          }
-        
-          .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-          }
-    
-          @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-              font-size: 3.5rem;
-            }
-          }
-    
-          .b-example-divider {
-            height: 3rem;
-            background-color: rgba(0, 0, 0, .1);
-            border: solid rgba(0, 0, 0, .15);
-            border-width: 1px 0;
-            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-          }
-    
-          .b-example-vr {
-            flex-shrink: 0;
-            width: 1.5rem;
-            height: 100vh;
-          }
-    
-          .bi {
-            vertical-align: -.125em;
-            fill: currentColor;
-          }
-    
-          .nav-scroller {
-            position: relative;
-            z-index: 2;
-            height: 2.75rem;
-            overflow-y: hidden;
-          }
-    
-          .nav-scroller .nav {
-            display: flex;
-            flex-wrap: nowrap;
-            padding-bottom: 1rem;
-            margin-top: -1px;
-            overflow-x: auto;
-            text-align: center;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-          }
-    </style>
-        <link href="../template/checkout.css" rel="stylesheet">
-    
-        
-        <!-- Custom styles for this template -->
-        <link href="../template/dashboard.css" rel="stylesheet">
-      </head>
-      <body>
-        
-    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-md-3 col-lg-3 me-0 px-3 fs-6" href="#"><img src="../template/assets/images/cg-govt.png" class="mx-2" height="30" width="30">बैगा स्वास्थ्य परीक्षण शिविर</a>
-      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search"> -->
-      
-      <div class="navbar-nav flex-row px-3">
-        <div class="nav-item">
-            <a class="nav-link" aria-current="page">
-                LoggedIn As: District Hospital
-            </a>
-        </div>
-        <div class="nav-item mx-3">
-            <a class="nav-link" aria-current="page">
-                |
-            </a>
-        </div>
-        <div class="nav-item">
-          <a class="nav-link" aria-current="page" href="logout.php">
-              Logout
-          </a>
-        </div>
-      </div>
-    </header>
+
+$content = nav_menu();
+
+$pgination = '<div class="d-flex justify-content-center">
+<ul class="pagination text-center" id="pagination">';
+ if($total_pages > 0){
+  for($i=1; $i<=$total_pages; $i++){
+      if($i == 1){
+        $pgination .= '<li class="page-link active" data="'.$i.'">'.$i.'</li> ';
+      }else{
+      $pgination .= '<li class="page-link" data="'.$i.'">'.$i.'</li>';
+    }
+  }      
+ }
+ $pgination .= '</ul></div>';
+            
+$content .='
         
     <div class="container-fluid">
       <div class="row">
+      
         <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
-        <div class="table-responsive">
+        <div class="d-flex align-items-center justify-content-between bg-white w-100 px-2 py-2">
+          <div><input type="text" placeholder="पंजीयन क्र." value="" id="searchRegistrationNo" name="searchRegistrationNo"> <button type="button" id="searchButton">Search</button> <button type="button" id="clearButton">Clear</button>  <a href="javascript:void(0);" class="px-2" id="clearAllFilter"><u>Remove all filter</u></a> </div>
+          <div><img id="downloadCSV" src="../template/assets/images/xls.png" height="20" width="20" style=" cursor:pointer" title="download"></div>
+        </div>
+        <div class="table-responsive bg-white">
             <table class="table table-striped table-sm">
             <thead>
                 <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Age</th>
+                <th scope="col">पंजीयन क्र.</th>
+                <th scope="col">नाम</th>
+                <th scope="col">उम्र</th>
+                <th scope="col">लिंग</th>
                 
-                <th scope="col">Weight</th>
-                <th scope="col">Height</th>
-                <th scope="col">Gender</th>
-                
-                <th scope="col">Mobile</th>
-                <th scope="col"><select class="formVal" id="filtertahsil" name="tahsil" required>
-                <option value="">तहसील</option>
-                <option value="kawardha">कवर्धा</option>
-                <option value="bodla">बोडला</option>
-                <option value="pandariya">पंडरिया</option>
-                <option value="saLohara">स लोहारा</option>
-              </select></th>
+                <th scope="col">मोबाइल</th>
+                <th scope="col"> 
+                  <select class="formVal" id="filtertahsil" name="tahsil" required>
+                    <option value="">तहसील</option>
+                    '.$tahsilsOptions.'
+                  </select>  
+                </th>
               
                 <th scope="col"><select class="formVal" id="filtervibhag" name="vibhag" required>
                 <option value="">विभाग</option>
-                <option value="child">बाल रोग</option>
-                <option value="gynecology">स्त्री रोग</option>
-                <option value="orthopedic">हड्डी रोग</option>
-                <option value="eye">नेत्र रोग</option>
-                <option value="medicine">मेडिसिन</option>
-                <option value="neurology">न्यूरोलॉजी</option>
-                <option value="ENT">ENT</option>
-                <option value="generalSurgery">General Surgery</option>
-                <option value="other">अन्य</option>
+                '.$vibhagOptions.'
               </select></th>
-                
-                <th scope="col"><select class="formVal" id="filterpatientStatus" name="patientStatus" required>
-                <option value="">मरीज की स्थिति</option>
-                <option value="Sent to DH">जिला अस्पताल भेजा गया</option>
-                <option value="other">ट्रांसफर अन्य.</option>
-              </select></th>
+                <th scope="col">
+                  <select class="formVal" id="filterpatientStatus" name="patientStatus" required>
+                    <option value="">मरीज की स्थिति</option>
+                    '.$patientStatusOptions.'
+                  </select>
+                </th> 
                 <th scope="col"><input type="date" id="addedDate" name="addedDate"></th>
                 <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody id="tablebody">
                 '.$trow.'
+                <tr><td colspan="100%">'.$pgination.'</td></tr>
             </tbody>
             </table>
+
+            
         </div>
         </main>
       </div>
@@ -307,7 +185,9 @@
                   </button>
                 </div>
                 <div class="modal-body d-flex justify-content-center">
-                  <img src="" id="pskPrescription" style="height:700px; width:750px;">
+                  <object id="objectViewer" data="" height="600" width="100%">
+                      <iframe id="objectframe" src="" frameborder="0" height="100%" width="100%"></iframe>
+                  </object>
                 </div>
               </div>
             </div>
@@ -332,8 +212,7 @@
                     <label for="name" class="form-label">Select : </label>
                     <select class="form-control formVal" id="UpdateDHpatientStatus" name="UpdateDHpatientStatus" required>
                       <option value="">मरीज की स्थिति</option>
-                      <option value="TreatedAtDH">जिला अस्पताल में ही इलाज हो गया.</option>
-                      <option value="other">ट्रांसफर अन्य.</option>
+                      '.$patientStatusOptions.'
                     </select>
                   </div>
                   <div class="col-12">
@@ -362,8 +241,11 @@
           <script src="../template/patient_filter.js" ></script>
           <script>
             $(".showPSKImage").on("click", function (event) {
-             
-                $("#pskPrescription").attr("src", $(this).attr("data-imagepath"));
+                let framePath = $(this).attr("data-imagepath");
+                $("#objectViewer").attr("data",  "../"+framePath);
+                $("#objectframe").attr("src",  "https://docs.google.com/viewer?url=../"+framePath+"&embedded=true");
+              
+              
             })
 
             $(".update-prescription").on("click", function (event) {
@@ -374,7 +256,9 @@
 
           $(".showDHImage").on("click", function (event) {
              
-            $("#pskPrescription").attr("src", $(this).attr("data-imagepath"));
+            let framePath = $(this).attr("data-imagepath");
+            $("#objectViewer").attr("data",  "../"+framePath);
+            $("#objectframe").attr("src",  "https://docs.google.com/viewer?url=../"+framePath+"&embedded=true");
           
           
         })
