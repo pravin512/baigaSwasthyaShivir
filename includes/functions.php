@@ -27,14 +27,14 @@ function site_version()
     echo config('version');
 }
 
-$site_url = 'http://3.109.136.34/baigaSwasthyaShivir';
+
 
 /**
  * Website navigation.
  */
 function nav_menu($sep = ' | ')
 {
-    
+    $site_url = 'http://3.109.136.34/baigaSwasthyaShivir';
     $bgColor = '#fff';
     if(isset($_SESSION["role"]))
     {
@@ -65,7 +65,7 @@ function nav_menu($sep = ' | ')
         <title>बैगा स्वास्थ्य परीक्षण शिविर</title>
         <link rel="icon" type="image/x-icon" href="'.$site_url.'/template/assets/images/cg-govt.png">
 
-        <link href="../template/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="'.$site_url.'/template/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <style>
         body{
