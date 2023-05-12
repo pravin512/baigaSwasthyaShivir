@@ -2,17 +2,27 @@ var filtertahsil = '';
 var filtervibhag = '';
 var filterpatientStatus = '';
 var filteraddedDate = '';
+var downloadCSV = '';
+var searchRegistrationNo = '';
+var page=1;
 
 
 function send_get_request()
 {
   var loaderDiv = `<div id="preloader" style="position:absolute; width:100%; height:100%; text-align:center; color:#fff; background:#000; opacity:0.6; z-index:9999;"><p style="margin-top:200px;">Loading...<p></div>`
   jQuery("body").prepend(loaderDiv);
-    var filterURL = 'patient_filter.php?filtertahsil='+filtertahsil+'&filtervibhag='+filtervibhag+'&filterpatientStatus='+filterpatientStatus+'&filteraddedDate='+filteraddedDate;
-    $.ajax({url: filterURL, success: function(result){
-        $("#tablebody").html(result);
-        jQuery("#preloader").remove();
-    }});
+    var filterURL = 'patient_filter.php?filtertahsil='+filtertahsil+'&filtervibhag='+filtervibhag+'&filterpatientStatus='+filterpatientStatus+'&filteraddedDate='+filteraddedDate+'&downloadCSV='+downloadCSV+'&searchRegistrationNo='+searchRegistrationNo+'&page='+page;
+    if(downloadCSV == 1)
+    {
+      window.open(filterURL);
+      jQuery("#preloader").remove();
+      return false;
+    }else{
+      $.ajax({url: filterURL, success: function(result){
+          $("#tablebody").html(result);
+          jQuery("#preloader").remove();
+      }});
+    }
 }
 
 function get_request_data()
@@ -21,6 +31,7 @@ function get_request_data()
     filtervibhag = document.getElementById('filtervibhag').value
     filterpatientStatus = document.getElementById('filterpatientStatus').value
     filteraddedDate = document.getElementById('addedDate').value
+    searchRegistrationNo = document.getElementById('searchRegistrationNo').value
 
     send_get_request();
 }
@@ -39,6 +50,42 @@ $('#filterpatientStatus').on('change', function(){
 
 $('#addedDate').on('change', function(){
     get_request_data();
+})
+
+$('#downloadCSV').on('click', function(){
+  downloadCSV = 1;
+  var downloadURL = 'patient_filter.php?downloadCSV='+downloadCSV;
+  window.open(downloadURL);
+  return false;
+})
+
+$('#searchButton').on('click', function(){
+  get_request_data();
+})
+
+$('#clearButton').on('click', function(){
+  document.getElementById('searchRegistrationNo').value = '';
+  get_request_data();
+})
+
+$('#clearAllFilter').on('click', function(){
+  document.getElementById('filtertahsil').value = "";
+  document.getElementById('filtervibhag').value = "";
+  document.getElementById('filterpatientStatus').value = "";
+  document.getElementById('addedDate').value = "";
+  document.getElementById('searchRegistrationNo').value = '';
+  get_request_data();
+})
+
+$("table").on('click', '.page-link', function(){
+  page = $(this).attr('data');
+
+  $(".page-link").each(function(i) {
+    $(this).removeClass("active");
+  });
+
+  $(this).addClass("active");
+  get_request_data();
 })
 
 

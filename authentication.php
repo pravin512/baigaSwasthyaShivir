@@ -20,7 +20,7 @@ require 'includes/functions.php';
         $username=mysqli_real_escape_string($con,$username);
         $password=mysqli_real_escape_string($con,$password);
     
-        $sql="select * from users where username='$username' and password='$password' and role='$role'";
+        $sql="select * from users where username='$username' and password='$password' and role='$role' and status = 1";
         
         $result=mysqli_query($con,$sql);
         $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
@@ -33,7 +33,7 @@ require 'includes/functions.php';
             $_SESSION['userid'] = $row['id'];
             $_SESSION['role'] = $row['role'];
             $_SESSION['tahsil'] = $row['tahsil'];
-            if($row['role'] == 'PSK')
+            if($row['role'] == 'PHC')
             {
                 redirect('home.php');
             }
@@ -43,7 +43,7 @@ require 'includes/functions.php';
             }
             if($row['role'] == 'ACT')
             {
-                redirect('home.php');
+                redirect('patient_listing.php');
             }
             if($row['role'] == 'Admin')
             {

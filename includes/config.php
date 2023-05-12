@@ -9,7 +9,7 @@ function config($key = '')
 {
     $config = [
         'name' => 'बैगा स्वास्थ्य परीक्षण शिविर',
-        'site_url' => '',
+        'site_url' => 'http://3.109.136.34/baigaSwasthyaShivir',
         'pretty_uri' => false,
         'nav_menu' => [
             'home' => 'Home'
