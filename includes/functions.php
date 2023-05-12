@@ -62,7 +62,7 @@ function nav_menu($sep = ' | ')
         <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Hugo 0.108.0">
         <title>बैगा स्वास्थ्य परीक्षण शिविर</title>
-        <link rel="icon" type="image/x-icon" href="'.$site_url.'/template/assets/images/cg-govt.png">
+        <link rel="icon" type="image/x-icon" href="'.echo $site_url;.'/template/assets/images/cg-govt.png">
 
         <link href="'.$site_url.'/template/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
