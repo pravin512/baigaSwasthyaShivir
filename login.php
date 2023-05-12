@@ -1,7 +1,7 @@
 <?php
-// require 'config/database.php';
-// require 'includes/config.php';
-// require 'includes/functions.php';
+require 'config/database.php';
+require 'includes/config.php';
+require 'includes/functions.php';
 
 
 // $content = nav_menu();
@@ -61,6 +61,5 @@
 //         <script src="../template/login.js"></script>
 //     </body>
 // </html>';
-$content = "Working";
-echo $content;
+echo "content";
 ?>
