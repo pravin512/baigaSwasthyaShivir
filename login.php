@@ -3,7 +3,7 @@ require 'config/database.php';
 require 'includes/config.php';
 require 'includes/functions.php';
 
-$site_url = config('site_url');
+
 $content = nav_menu();
 $content .= '
 <style>
@@ -17,7 +17,7 @@ $content .= '
 
     }
     .img-block{
-    background:url("'.$site_url.'/template/assets/images/bhoramdeo.png");
+    background:url("../template/assets/images/bhoramdeo.png");
     background-repeat:no-repeat;
     background-size:contain;
     background-position: center center;
@@ -51,14 +51,14 @@ $content .= '
             </div>
         </div>
         <div class="col-7 d-none d-md-block" style="position:relative;">
-            <img src="'.$site_url.'/template/assets/images/kidImage.JPG" style="width:100%; height:100%; position:absolute; top:0; left:0; z-index:1">
+            <img src="../template/assets/images/kidImage.JPG" style="width:100%; height:100%; position:absolute; top:0; left:0; z-index:1">
             
         </div>
     </div>
 </div>
-        <script src="'.$site_url.'/template/jquery-3.6.3.min.js"></script>
-        <script src="'.$site_url.'/template/assets/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="'.$site_url.'/template/login.js"></script>
+        <script src="../template/jquery-3.6.3.min.js"></script>
+        <script src="../template/assets/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../template/login.js"></script>
     </body>
 </html>';
 echo $content;
