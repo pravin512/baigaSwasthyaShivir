@@ -27,6 +27,8 @@ function site_version()
     echo config('version');
 }
 
+$site_url = config('site_url');
+
 /**
  * Website navigation.
  */
@@ -60,9 +62,9 @@ function nav_menu($sep = ' | ')
         <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Hugo 0.108.0">
         <title>बैगा स्वास्थ्य परीक्षण शिविर</title>
-        <link rel="icon" type="image/x-icon" href="../template/assets/images/cg-govt.png">
+        <link rel="icon" type="image/x-icon" href="'.$site_url.'/template/assets/images/cg-govt.png">
 
-        <link href="../template/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="'.$site_url.'/template/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <style>
         body{
@@ -171,12 +173,12 @@ function nav_menu($sep = ' | ')
         }
         </style>        
         <!-- Custom styles for this template -->
-        <link href="../template/dashboard.css" rel="stylesheet">
+        <link href="'.$site_url.'/template/dashboard.css" rel="stylesheet">
     </head>
     <body>
         
         <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-3 me-0 px-3 fs-6" href="#"><img src="../template/assets/images/cg-govt.png" class="mx-2" height="30" width="30">बैगा स्वास्थ्य परीक्षण शिविर</a>
+        <a class="navbar-brand col-md-3 col-lg-3 me-0 px-3 fs-6" href="#"><img src="'.$site_url.'/template/assets/images/cg-govt.png" class="mx-2" height="30" width="30">बैगा स्वास्थ्य परीक्षण शिविर</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>';
