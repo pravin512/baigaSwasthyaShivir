@@ -1,6 +1,7 @@
 <?php
-require 'includes/config.php';
-require 'includes/functions.php';
+    try{
+        require 'includes/config.php';
+        require 'includes/functions.php';
 
     // if(isset($_SESSION['username']))
     // {
@@ -58,4 +59,10 @@ require 'includes/functions.php';
             // $_GET['page'] = 'login';
             // init();
         }
+
+    }
+    //catch exception
+   catch(Exception $e) {
+       echo 'Message: ' .$e->getMessage();
+     }
 ?>
