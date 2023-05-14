@@ -36,7 +36,7 @@ $content .= '
                             <option value="PHC">Primary Health Camp</option>
                             <option value="DH">District Hospital</option>
                             <option value="ACT">AC Tribal</option>
-                            <option value="admin">Admin</option>
+                            <option value="Admin">Admin</option>
                         </select>
                     </div>
                     <div class="form-group pb-3">    
