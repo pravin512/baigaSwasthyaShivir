@@ -4,6 +4,8 @@
  require 'includes/functions.php';
  require 'includes/constants.php';
 
+ $site_url = config('site_url');
+
  if(!isset($_SESSION['username']))
 {
     header('Location: login.php');
@@ -31,7 +33,7 @@ body{
 </style>
 <div class="container">
     <div class="col-12 d-flex justify-content-start">
-        <a href="users.php">
+        <a href="'.$site_url.'/users.php">
             <div class="card text-white bg-info m-3 d-flex justify-content-start no-gutters shadow-lg text-center" style="max-width: 18rem;">
                 <div class="card-header">Users</div>
                 <div class="card-body">
