@@ -10,7 +10,7 @@ $sql = "SELECT * FROM users";
 
 $result = $con->query($sql);
 
-$trow = ``;
+$trow = '';
 // $i = 1;
 if ($result->num_rows > 0) 
     {
