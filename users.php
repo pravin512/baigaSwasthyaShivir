@@ -10,6 +10,11 @@ $sql = "SELECT * FROM users";
 mysqli_query($con, "set names utf8");
 $fetch = mysqli_query($con, $sql);
 
+$totalrecords = mysqli_num_rows($fetch);
+while($row = mysqli_fetch_assoc($fetch)) {
+    dd($row);
+}
+
 $trow = 'hello';
 // $i = 1;
 // while ($row = mysqli_fetch_array($fetch, MYSQLI_NUM))
