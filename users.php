@@ -6,9 +6,6 @@
  
  $site_url = config('site_url');
 
-//  $trow = ``;
-// $i = 1;
-
 $sql = "SELECT * FROM users";
 mysqli_query($con, "set names utf8");
 $fetch = mysqli_query($con, $sql);
@@ -18,8 +15,13 @@ while($row = mysqli_fetch_assoc($fetch)) {
     $arr[] = $row;
 }
 
-dd($arr);
 
+$trow = ``;
+$i = 1;
+foreach($arr as $value)
+{
+    dd($value);
+}
 // $changedStatus = $row['status']==1?0:1;
     // $tr = "<tr>";
     // $tr .= "<td  class='text-white'>".$i."</td>";
