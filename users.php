@@ -10,8 +10,7 @@ $sql = "SELECT * FROM users";
 
 $result = $con->query($sql);
 
-$trow = ``;
-$i = 1;
+
 if ($result->num_rows > 0) 
     {
         // OUTPUT DATA OF EACH ROW
@@ -33,8 +32,6 @@ if ($result->num_rows > 0)
             // </button></td>";
             // $tr .= "<tr>";
             // $trow .= $tr;
-
-            $i++;
         }
     } 
     else {
