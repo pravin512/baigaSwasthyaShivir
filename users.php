@@ -10,44 +10,36 @@ $sql = "SELECT * FROM users";
 
 $result = $con->query($sql);
 
+$trow = ``;
+$i = 1;
 if ($result->num_rows > 0) 
     {
         // OUTPUT DATA OF EACH ROW
         while($row = $result->fetch_assoc())
         {
-            echo "Roll No: ".$row["name"]. " - Name: ";
+            $changedStatus = $row['status']==1?0:1;
+            $tr = "<tr>";
+            $tr .= "<td  class='text-white'>".$i."</td>";
+            $tr .= "<td  class='text-white'>".$row['name']."</td>";
+            $tr .= "<td class='text-white'>".$row['username']."</td>";
+            // $tr .= "<td class='text-white'>".$row['password']."</td>";
+            $tr .= "<td class='text-white'>".$row['role']."</td>";
+            $tr .= "<td class='text-white'>".$row['tahsil']."</td>";
+            $tr .= "<td class='text-white'>".$CommonStatus[$row['status']]."</td>";
+            $tr .= "<td class='text-white'><button type='button' class='btn btn-sm btn-light editUser' data-id='".$row['id']."' data-name='".$row['name']."' data-username='".$row['username']."' data-role='".$row['role']."' data-tahsil='".$row['tahsil']."' data-status='".$row['status']."' data-toggle='modal' data-target='#updateUserModal'>
+            &#x270E;
+            </button> <button type='button' class='btn btn-sm btn-light changePassword' data-name='".$row['name']."'  data-id='".$row['id']."' data-toggle='modal' data-target='#changePasswordfrmModel'>
+            Change Password
+            </button></td>";
+            $tr .= "<tr>";
+            $trow .= $tr;
+
+            $i++;
         }
     } 
     else {
         echo "0 results";
     }
-
-mysqli_query($con, "set names utf8");
-$fetch = mysqli_query($con, $sql);
-$arr = array();
-$totalrecords = mysqli_num_rows($fetch);
-while($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
-    $arr[] = $row;
-}
-
-// $changedStatus = $row['status']==1?0:1;
-    // $tr = "<tr>";
-    // $tr .= "<td  class='text-white'>".$i."</td>";
-    // $tr .= "<td  class='text-white'>".$row['name']."</td>";
-    // $tr .= "<td class='text-white'>".$row['username']."</td>";
-    // // $tr .= "<td class='text-white'>".$row['password']."</td>";
-    // $tr .= "<td class='text-white'>".$row['role']."</td>";
-    // $tr .= "<td class='text-white'>".$row['tahsil']."</td>";
-    // $tr .= "<td class='text-white'>".$CommonStatus[$row['status']]."</td>";
-    // $tr .= "<td class='text-white'><button type='button' class='btn btn-sm btn-light editUser' data-id='".$row['id']."' data-name='".$row['name']."' data-username='".$row['username']."' data-role='".$row['role']."' data-tahsil='".$row['tahsil']."' data-status='".$row['status']."' data-toggle='modal' data-target='#updateUserModal'>
-    // &#x270E;
-    // </button> <button type='button' class='btn btn-sm btn-light changePassword' data-name='".$row['name']."'  data-id='".$row['id']."' data-toggle='modal' data-target='#changePasswordfrmModel'>
-    // Change Password
-    // </button></td>";
-    // $tr .= "<tr>";
-    // $trow .= $tr;
-
-    // $i++;
 
 $content = nav_menu();
 
