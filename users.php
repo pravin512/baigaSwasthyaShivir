@@ -219,9 +219,7 @@ body{
         </div>
     </div>
 </div>
-<script src="'.$site_url.'/template/jquery-3.6.3.min.js"></script>
-<script src="'.$site_url.'/template/assets/js/bootstrap.min.js"></script>
-<script src="'.$site_url.'/template/user.js" ></script>
+
     </body>
 </html>';
 echo $content;
