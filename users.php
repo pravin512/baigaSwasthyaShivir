@@ -24,8 +24,12 @@ if ($result->num_rows > 0)
             <td class="text-white">'.$row["username"].'</td>
             <td class="text-white">'.$row["role"].'</td>
             <td class="text-white">'.$row["tahsil"].'</td>
-            <td class="text-white">'.$row["status"].'</td>
-            <td class="text-white">Action</td>
+            <td class="text-white">'.$CommonStatus[$row["status"]].'</td>
+            <td class="text-white"><button type="button" class="btn btn-sm btn-light editUser" data-id="'.$row['id'].'" data-name="'.$row['name'].'" data-username="'.$row['username'].'" data-role="'.$row['role'].'" data-tahsil="'.$row['tahsil'].'" data-status="'.$row['status'].'" data-toggle="modal" data-target="#updateUserModal">
+            &#x270E;
+            </button> <button type="button" class="btn btn-sm btn-light changePassword" data-name="'.$row['name'].'"  data-id="'.$row['id'].'" data-toggle="modal" data-target="#changePasswordfrmModel">
+            Change Password
+            </button></td>
             </tr>
             ';
             // $tr = "<tr>";
