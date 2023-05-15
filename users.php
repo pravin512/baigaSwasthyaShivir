@@ -10,7 +10,8 @@ $sql = "SELECT * FROM users";
 
 $result = $con->query($sql);
 
-
+$trow = ``;
+// $i = 1;
 if ($result->num_rows > 0) 
     {
         // OUTPUT DATA OF EACH ROW
@@ -32,6 +33,8 @@ if ($result->num_rows > 0)
             // </button></td>";
             // $tr .= "<tr>";
             // $trow .= $tr;
+
+            $i++;
         }
     } 
     else {
@@ -72,7 +75,7 @@ body{
                 </tr>
                 </thead>
                 <tbody>
-                    
+                    '.$trow.'
                 </tbody>
             </table>
             <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="UpdateDetailModalLabel" aria-hidden="true">
