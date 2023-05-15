@@ -32,8 +32,7 @@ require 'includes/functions.php';
   $path = "/test";
 
 $sql="INSERT INTO `patient_data`(`name`, `age`, `fatherHusband`, `mother`, `weight`, `height`, `sex`, `aadhar`, `mobile`, `tahsil`, `address`, `vibhag`, `otherdisease`, `patientStatus`, `created_at`, `updated_at`, `prescription`, `added_by`, `registration_number`, `patient_status_when_other`) VALUES ('".$name."','".$age."','".$father_husbandName."','".$mother."','".$weight."','".$height."','".$sex."','".$aadhar."','".$mobile."','".$tahsil."','".$hitgrahAddress."','".$vibhag."','".$anyaRog."','".$patientStatus."', NOW(), NOW(),'".$path."',".$user_id.", '".$registrationNo."','".$patientStatusOther."')";
-echo $sql;
-dd($con->query($sql))
+
 if($con->query($sql)){
     echo 'Success';
 }else{
