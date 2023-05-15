@@ -22,16 +22,18 @@ require 'includes/functions.php';
   // $otherDetials = $_POST['otherDetials'];
   $user_id = $_SESSION['userid'];
 
-  $prescription = uploadPrescriptionFile();
-  if($prescription['status'] == false)
-  {
-    echo $prescription['msg'];
-    exit(0);
-  }
-  $path = $prescription['path'];
+  // $prescription = uploadPrescriptionFile();
+  // if($prescription['status'] == false)
+  // {
+  //   echo $prescription['msg'];
+  //   exit(0);
+  // }
+  // $path = $prescription['path'];
+  $path = "/test";
 
 $sql="INSERT INTO `patient_data`(`name`, `age`, `fatherHusband`, `mother`, `weight`, `height`, `sex`, `aadhar`, `mobile`, `tahsil`, `address`, `vibhag`, `otherdisease`, `patientStatus`, `created_at`, `updated_at`, `prescription`, `added_by`, `registration_number`, `patient_status_when_other`) VALUES ('".$name."','".$age."','".$father_husbandName."','".$mother."','".$weight."','".$height."','".$sex."','".$aadhar."','".$mobile."','".$tahsil."','".$hitgrahAddress."','".$vibhag."','".$anyaRog."','".$patientStatus."', NOW(), NOW(),'".$path."',".$user_id.", '".$registrationNo."','".$patientStatusOther."')";
 echo $sql;
+dd($con->query($sql))
 if($con->query($sql)){
     echo 'Success';
 }else{
