@@ -5,13 +5,19 @@
  require 'includes/constants.php';
 
 $sql = "SELECT * FROM users";
-mysqli_query($con, "set names utf8");
-$result=mysqli_query($con,$sql);
+// mysqli_query($con, "set names utf8");
+$fetch = mysqli_query($con, $sql);
+while($value=mysqli_fetch_array($fetch,MYSQLI_NUM)) {
+
+    echo "###########";
+
+}
+// $result=mysqli_query($con,$sql);
 // $row=mysqli_fetch_all($result,MYSQLI_ASSOC);
 
 $trow = ``;
 $i = 1;
-while ($value = mysqli_fetch_assoc($result))
+while ($value = mysqli_fetch_array($fetch, MYSQLI_NUM))
 {
     $changedStatus = $value['status']==1?0:1;
     $tr = "<tr>";
