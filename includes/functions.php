@@ -437,3 +437,18 @@ function download_send_headers($filename) {
     // echo "\xEF\xBB\xBF"; // UTF-8 BOM
 
 }
+
+function fetch_db_data($sql){
+    if(! $con ) {
+        die('Could not connect: ' . mysql_error());
+     }
+     
+     mysql_select_db('health');
+     $retval = mysql_query( $sql, $con );
+     
+     if(! $retval ) {
+        die('Could not get data: ' . mysql_error());
+     }
+
+     return $retval;
+}   

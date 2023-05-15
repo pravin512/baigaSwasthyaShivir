@@ -7,21 +7,29 @@
  $site_url = config('site_url');
 
 $sql = "SELECT * FROM users";
+
+$result = $con->query($sql);
+
+if ($result->num_rows > 0) 
+    {
+        // OUTPUT DATA OF EACH ROW
+        while($row = $result->fetch_assoc())
+        {
+            echo "Roll No: ".$row["name"]. " - Name: ";
+        }
+    } 
+    else {
+        echo "0 results";
+    }
+
 mysqli_query($con, "set names utf8");
 $fetch = mysqli_query($con, $sql);
 $arr = array();
 $totalrecords = mysqli_num_rows($fetch);
-while($row = mysqli_fetch_assoc($fetch)) {
+while($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
     $arr[] = $row;
 }
 
-
-$trow = ``;
-$i = 1;
-foreach($arr as $value)
-{
-    dd($value);
-}
 // $changedStatus = $row['status']==1?0:1;
     // $tr = "<tr>";
     // $tr .= "<td  class='text-white'>".$i."</td>";
