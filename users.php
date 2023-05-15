@@ -7,13 +7,6 @@
 $sql = "SELECT * FROM users";
 // mysqli_query($con, "set names utf8");
 $fetch = mysqli_query($con, $sql);
-while($value=mysqli_fetch_array($fetch,MYSQLI_NUM)) {
-
-    echo "###########";
-
-}
-// $result=mysqli_query($con,$sql);
-// $row=mysqli_fetch_all($result,MYSQLI_ASSOC);
 
 $trow = ``;
 $i = 1;
