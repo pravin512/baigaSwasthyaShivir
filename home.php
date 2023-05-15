@@ -4,6 +4,8 @@ require 'includes/config.php';
 require 'includes/functions.php';
 require 'includes/constants.php';
 
+$site_url = config('site_url');
+
 $patientStatusOptions = '';
 foreach($patientStatus[$_SESSION["role"]] as $k => $val) {
   $patientStatusOptions .= '<option value="'.$k.'">'.$val.'.</option>';
@@ -21,7 +23,7 @@ foreach($tahsils as $k => $val) {
 
 $content = nav_menu();
 $content .= '
-<link href="../template/checkout.css" rel="stylesheet">
+<link href="'.$site_url.'/template/checkout.css" rel="stylesheet">
 <div class="container-fluid">
   <div class="row">
   <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
@@ -29,7 +31,7 @@ $content .= '
       <div class="col-md-12 col-lg-12" style="box-shadow: 0 4px 25px -4px #9da5ab; ">
         <h4 class="mb-3 text-center">विशेष रूप से कमजोर जनजाति समूह बैगा का स्वास्थ्य परीक्षण शिविर</h4>
         <hr class="my-4">
-        <form enctype=multipart/form-data class="needs-validation addfrm" id="addfrm" action="add.php" novalidate method = "POST">
+        <form enctype="multipart/form-data" class="needs-validation addfrm" id="addfrm" action="'.$site_url.'/add.php" novalidate method="POST">
           <div class="row g-3">
             <div class="col-4">
               <label for="registrationNo" class="form-label">पंजीयन क्रमांक *</label>
@@ -257,11 +259,11 @@ $content .= '
   </div>
 </div>
      
-      <script src="../template/jquery-3.6.3.min.js"></script>
-      <script src="../template/assets/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="'.$site_url.'/template/jquery-3.6.3.min.js"></script>
+      <script src="'.$site_url.'/template/assets/dist/js/bootstrap.bundle.min.js"></script>
 
       </script>
-      <script src="../template/checkout.js" ></script>
+      <script src="'.$site_url.'/template/checkout.js" ></script>
 
   </body>
 </html>
