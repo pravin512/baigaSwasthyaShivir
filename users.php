@@ -75,7 +75,7 @@ body{
                 </tr>
                 </thead>
                 <tbody>
-                    '.$trow.'
+                    
                 </tbody>
             </table>
             <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="UpdateDetailModalLabel" aria-hidden="true">
