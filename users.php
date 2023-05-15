@@ -15,22 +15,22 @@ $i = 1;
 while ($row = mysqli_fetch_array($fetch, MYSQLI_NUM))
 {
     // $changedStatus = $row[6]==1?0:1;
-    $tr = "<tr>";
-    $tr .= "<td  class='text-white'>".$i."</td>";
-    $tr .= "<td  class='text-white'>".$row[1]."</td>";
-    $tr .= "<td class='text-white'>".$row[2]."</td>";
-    // $tr .= "<td class='text-white'>".$row[3]."</td>";
-    $tr .= "<td class='text-white'>".$row[4]."</td>";
-    $tr .= "<td class='text-white'>".$row[5]."</td>";
-    $tr .= "<td class='text-white'>".$CommonStatus[1]."</td>";
-    $tr .= "<td class='text-white'><button type='button' class='btn btn-sm btn-light editUser' data-id='".$row[0]."' data-name='".$row[1]."' data-username='".$row[2]."' data-role='".$row[4]."' data-tahsil='".$row[5]."' data-status='".$row[6]."' data-toggle='modal' data-target='#updateUserModal'>
-    &#x270E;
-    </button> <button type='button' class='btn btn-sm btn-light changePassword' data-name='".$row[1]."'  data-id='".$row[0]."' data-toggle='modal' data-target='#changePasswordfrmModel'>
-    Change Password
-    </button></td>";
-    $tr .= "<tr>";
-    $trow .= $tr;
-    $i++;
+    // $tr = "<tr>";
+    // $tr .= "<td  class='text-white'>".$i."</td>";
+    // $tr .= "<td  class='text-white'>".$row[1]."</td>";
+    // $tr .= "<td class='text-white'>".$row[2]."</td>";
+    // // $tr .= "<td class='text-white'>".$row[3]."</td>";
+    // $tr .= "<td class='text-white'>".$row[4]."</td>";
+    // $tr .= "<td class='text-white'>".$row[5]."</td>";
+    // $tr .= "<td class='text-white'>".$CommonStatus[1]."</td>";
+    // $tr .= "<td class='text-white'><button type='button' class='btn btn-sm btn-light editUser' data-id='".$row[0]."' data-name='".$row[1]."' data-username='".$row[2]."' data-role='".$row[4]."' data-tahsil='".$row[5]."' data-status='".$row[6]."' data-toggle='modal' data-target='#updateUserModal'>
+    // &#x270E;
+    // </button> <button type='button' class='btn btn-sm btn-light changePassword' data-name='".$row[1]."'  data-id='".$row[0]."' data-toggle='modal' data-target='#changePasswordfrmModel'>
+    // Change Password
+    // </button></td>";
+    // $tr .= "<tr>";
+    // $trow .= $tr;
+    // $i++;
 }
 $content = nav_menu();
 $content .= '
