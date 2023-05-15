@@ -7,23 +7,31 @@
 $sql = "SELECT * FROM users";
 // mysqli_query($con, "set names utf8");
 $fetch = mysqli_query($con, $sql);
+while($row=mysqli_fetch_array($fetch,MYSQLI_NUM)) {
+    echo "#############";
+    print_r($row);
+    //do something
+
+}
+// $result=mysqli_query($con,$sql);
+// $row=mysqli_fetch_all($result,MYSQLI_ASSOC);
 
 $trow = ``;
 $i = 1;
-while ($row = mysqli_fetch_array($fetch, MYSQLI_NUM))
+while ($value = mysqli_fetch_array($result, MYSQLI_NUM))
 {
-    $changedStatus = $row['status']==1?0:1;
+    $changedStatus = $value['status']==1?0:1;
     $tr = "<tr>";
     $tr .= "<td  class='text-white'>".$i."</td>";
-    $tr .= "<td  class='text-white'>".$row['name']."</td>";
-    $tr .= "<td class='text-white'>".$row['username']."</td>";
-    // $tr .= "<td class='text-white'>".$row['password']."</td>";
-    $tr .= "<td class='text-white'>".$row['role']."</td>";
-    $tr .= "<td class='text-white'>".$row['tahsil']."</td>";
-    $tr .= "<td class='text-white'>".$CommonStatus[$row['status']]."</td>";
-    $tr .= "<td class='text-white'><button type='button' class='btn btn-sm btn-light editUser' data-id='".$row['id']."' data-name='".$row['name']."' data-username='".$row['username']."' data-role='".$row['role']."' data-tahsil='".$row['tahsil']."' data-status='".$row['status']."' data-toggle='modal' data-target='#updateUserModal'>
+    $tr .= "<td  class='text-white'>".$value['name']."</td>";
+    $tr .= "<td class='text-white'>".$value['username']."</td>";
+    // $tr .= "<td class='text-white'>".$value['password']."</td>";
+    $tr .= "<td class='text-white'>".$value['role']."</td>";
+    $tr .= "<td class='text-white'>".$value['tahsil']."</td>";
+    $tr .= "<td class='text-white'>".$CommonStatus[$value['status']]."</td>";
+    $tr .= "<td class='text-white'><button type='button' class='btn btn-sm btn-light editUser' data-id='".$value['id']."' data-name='".$value['name']."' data-username='".$value['username']."' data-role='".$value['role']."' data-tahsil='".$value['tahsil']."' data-status='".$value['status']."' data-toggle='modal' data-target='#updateUserModal'>
     &#x270E;
-    </button> <button type='button' class='btn btn-sm btn-light changePassword' data-name='".$row['name']."'  data-id='".$row['id']."' data-toggle='modal' data-target='#changePasswordfrmModel'>
+    </button> <button type='button' class='btn btn-sm btn-light changePassword' data-name='".$value['name']."'  data-id='".$value['id']."' data-toggle='modal' data-target='#changePasswordfrmModel'>
     Change Password
     </button></td>";
     $tr .= "<tr>";
