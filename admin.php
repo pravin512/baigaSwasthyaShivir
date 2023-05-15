@@ -4,7 +4,6 @@
  require 'includes/functions.php';
  require 'includes/constants.php';
  try {
-    print_r($_SESSION);
     $site_url = config('site_url');
 
     if(!isset($_SESSION['username']))
