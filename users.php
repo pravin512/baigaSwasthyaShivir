@@ -6,17 +6,37 @@
  
  $site_url = config('site_url');
 
+ $trow = ``;
+$i = 1;
+
 $sql = "SELECT * FROM users";
 mysqli_query($con, "set names utf8");
 $fetch = mysqli_query($con, $sql);
 
 $totalrecords = mysqli_num_rows($fetch);
 while($row = mysqli_fetch_assoc($fetch)) {
-    dd($row);
+
+    $changedStatus = $row['status']==1?0:1;
+    $tr = "<tr>";
+    $tr .= "<td  class='text-white'>".$i."</td>";
+    $tr .= "<td  class='text-white'>".$row['name']."</td>";
+    $tr .= "<td class='text-white'>".$row['username']."</td>";
+    // $tr .= "<td class='text-white'>".$row['password']."</td>";
+    $tr .= "<td class='text-white'>".$row['role']."</td>";
+    $tr .= "<td class='text-white'>".$row['tahsil']."</td>";
+    $tr .= "<td class='text-white'>".$CommonStatus[$row['status']]."</td>";
+    $tr .= "<td class='text-white'><button type='button' class='btn btn-sm btn-light editUser' data-id='".$row['id']."' data-name='".$row['name']."' data-username='".$row['username']."' data-role='".$row['role']."' data-tahsil='".$row['tahsil']."' data-status='".$row['status']."' data-toggle='modal' data-target='#updateUserModal'>
+    &#x270E;
+    </button> <button type='button' class='btn btn-sm btn-light changePassword' data-name='".$row['name']."'  data-id='".$row['id']."' data-toggle='modal' data-target='#changePasswordfrmModel'>
+    Change Password
+    </button></td>";
+    $tr .= "<tr>";
+    $trow .= $tr;
+
+    $i++;
 }
 
-$trow = 'hello';
-// $i = 1;
+
 // while ($row = mysqli_fetch_array($fetch, MYSQLI_NUM))
 // {
     
