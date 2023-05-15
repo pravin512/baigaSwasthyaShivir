@@ -15,7 +15,7 @@ $fetch = mysqli_query($con, $sql);
 
 $totalrecords = mysqli_num_rows($fetch);
 while($row = mysqli_fetch_assoc($fetch)) {
-    dd($row['id']);
+    dd($row->id);
     $changedStatus = $row['status']==1?0:1;
     $tr = "<tr>";
     $tr .= "<td  class='text-white'>".$i."</td>";
