@@ -11,7 +11,7 @@ $sql = "SELECT * FROM users";
 $result = $con->query($sql);
 
 $trow = '';
-// $i = 1;
+$i = 1;
 if ($result->num_rows > 0) 
     {
         // OUTPUT DATA OF EACH ROW
