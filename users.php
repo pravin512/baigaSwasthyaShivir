@@ -17,7 +17,17 @@ if ($result->num_rows > 0)
         // OUTPUT DATA OF EACH ROW
         while($row = $result->fetch_assoc())
         {
-            // $changedStatus = $row['status']==1?0:1;
+            $changedStatus = $row['status']==1?0:1;
+            $tr = '<tr>
+            <td class="text-white">'.$i.'</td>
+            <td class="text-white">'.$row["name"].'</td>
+            <td class="text-white">'.$row["username"].'</td>
+            <td class="text-white">'.$row["role"].'</td>
+            <td class="text-white">'.$row["tahsil"].'</td>
+            <td class="text-white">'.$row["status"].'</td>
+            <td class="text-white">Action</td>
+            </tr>
+            ';
             // $tr = "<tr>";
             // $tr .= "<td  class='text-white'>".$i."</td>";
             // $tr .= "<td  class='text-white'>".$row['name']."</td>";
@@ -32,7 +42,7 @@ if ($result->num_rows > 0)
             // Change Password
             // </button></td>";
             // $tr .= "<tr>";
-            // $trow .= $tr;
+            $trow .= $tr;
 
             $i++;
         }
@@ -75,7 +85,7 @@ body{
                 </tr>
                 </thead>
                 <tbody>
-                    
+                    '.$trow.'
                 </tbody>
             </table>
             <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="UpdateDetailModalLabel" aria-hidden="true">
