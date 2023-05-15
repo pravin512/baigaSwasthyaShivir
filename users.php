@@ -32,7 +32,7 @@ while ($row = mysqli_fetch_array($fetch, MYSQLI_NUM))
     $trow .= $tr;
     $i++;
 }
-$content = nav_menu();
+// $content = nav_menu();
 $contentX .= '
 <style>
 body{
@@ -224,5 +224,5 @@ body{
 <script src="'.$site_url.'/template/user.js" ></script>
     </body>
 </html>';
-echo $content;
+echo "hello";
  ?>
