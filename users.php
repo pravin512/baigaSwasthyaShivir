@@ -6,9 +6,9 @@
  
  $site_url = config('site_url');
 
-// $sql = "SELECT * FROM users";
-// // mysqli_query($con, "set names utf8");
-// $fetch = mysqli_query($con, $sql);
+$sql = "SELECT * FROM users";
+mysqli_query($con, "set names utf8");
+$fetch = mysqli_query($con, $sql);
 
 $trow = 'hello';
 // $i = 1;
