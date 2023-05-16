@@ -73,20 +73,20 @@ if(isset($_GET['filterpatientStatus']) && $_GET['filterpatientStatus'] != '')
     }
 }
 
-$result=mysqli_query($con,$sql);
-mysql_set_charset("utf8");
-$row=mysqli_fetch_all($result,MYSQLI_ASSOC);
+$result = $con->query($sql);
+// mysql_set_charset("utf8");
+// $row=mysqli_fetch_all($result,MYSQLI_ASSOC);
 
 // pagination
-$rs_result = mysqli_query($con, $total_Count_sql);  
-$total_row = mysqli_fetch_all($rs_result);  
-$total_records = $total_row[0][0];  
+$rs_result = $con->query($total_Count_sql); 
+// $total_row = mysqli_fetch_all($rs_result);  
+$total_records = $rs_result->num_rows;
 $total_pages = ceil($total_records / $limit); 
 // pagination end
 
-$trow = ``;
+$trow = '';
 $export = [];
-foreach($row as $value)
+while($row = $result->fetch_assoc())
 {
     $exportData = [];
 
