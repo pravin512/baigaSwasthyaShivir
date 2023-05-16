@@ -4,7 +4,7 @@
         require 'includes/config.php';
         require 'includes/functions.php';
         require 'includes/constants.php';
-
+        $site_url = config('site_url');
         $limit = 100;  
         $total_pages = 0;
         if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
@@ -133,7 +133,7 @@ $content .='
         <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
         <div class="d-flex align-items-center justify-content-between bg-white w-100 px-2 py-2">
           <div><input type="text" placeholder="पंजीयन क्र." value="" id="searchRegistrationNo" name="searchRegistrationNo"> <button type="button" id="searchButton">Search</button> <button type="button" id="clearButton">Clear</button>  <a href="javascript:void(0);" class="px-2" id="clearAllFilter"><u>Remove all filter</u></a> </div>
-          <div><img id="downloadCSV" src="../template/assets/images/xls.png" height="20" width="20" style=" cursor:pointer" title="download"></div>
+          <div><img id="downloadCSV" src="'.$site_url.'/template/assets/images/xls.png" height="20" width="20" style=" cursor:pointer" title="download"></div>
         </div>
         <div class="table-responsive bg-white">
             <table class="table table-striped table-sm">
@@ -237,15 +237,15 @@ $content .='
           </div>
           
     </div>
-          <script src="../template/jquery-3.6.3.min.js"></script>
-          <script src="../template/assets/js/bootstrap.min.js"></script>
+          <script src="'.$site_url.'/template/jquery-3.6.3.min.js"></script>
+          <script src="'.$site_url.'/template/assets/js/bootstrap.min.js"></script>
           
-          <script src="../template/patient_filter.js" ></script>
+          <script src="'.$site_url.'/template/patient_filter.js" ></script>
           <script>
             $(".showPSKImage").on("click", function (event) {
                 let framePath = $(this).attr("data-imagepath");
-                $("#objectViewer").attr("data",  "../"+framePath);
-                $("#objectframe").attr("src",  "https://docs.google.com/viewer?url=../"+framePath+"&embedded=true");
+                $("#objectViewer").attr("data",  "'.$site_url.'/"+framePath);
+                $("#objectframe").attr("src",  "https://docs.google.com/viewer?url='.$site_url.'/"+framePath+"&embedded=true");
               
               
             })
@@ -259,8 +259,8 @@ $content .='
           $(".showDHImage").on("click", function (event) {
              
             let framePath = $(this).attr("data-imagepath");
-            $("#objectViewer").attr("data",  "../"+framePath);
-            $("#objectframe").attr("src",  "https://docs.google.com/viewer?url=../"+framePath+"&embedded=true");
+            $("#objectViewer").attr("data",  "'.$site_url.'/"+framePath);
+            $("#objectframe").attr("src",  "https://docs.google.com/viewer?url='.$site_url.'/"+framePath+"&embedded=true");
           
           
         })
