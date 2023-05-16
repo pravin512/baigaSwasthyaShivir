@@ -331,7 +331,7 @@ function uploadPrescriptionFile()
 {
     
         $msg = ['status'=>false, 'msg'=>'', 'path'=>''];
-        $target_dir = "/htdocs/baigaSwasthyaShivir/uploads/";
+        $target_dir = "/home/bitnami/htdocs/baigaSwasthyaShivir/uploads/";
         $target_file = $target_dir . time().basename($_FILES["prescription"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -381,9 +381,9 @@ function uploadPrescriptionFile()
         // if everything is ok, try to upload file
         } else {
 
-            $moved = move_uploaded_file($_FILES["prescription"]["tmp_name"], $target_file);
-            dd($moved);
-        if ($moved) {
+            // $moved = move_uploaded_file($_FILES["prescription"]["tmp_name"], $target_file);
+            // dd($moved);
+        if (move_uploaded_file($_FILES["prescription"]["tmp_name"], $target_file)) {
 
             $msg['status'] = true;
             $msg['msg'] = "Success.";
