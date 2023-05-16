@@ -51,57 +51,59 @@
           $total_Count_sql = "SELECT COUNT(`id`) FROM `patient_data` WHERE `patientStatus` IN ('PSKTAC', 'PSKTAPSC') AND `tahsil` = '".$_SESSION['tahsil']."'";
         }
 
-        $result=mysqli_query($con,$sql);
-        $row=mysqli_fetch_all($result,MYSQLI_ASSOC);
+        $result = $con->query($sql);
+        // $result=mysqli_query($con,$sql);
+        // $row=mysqli_fetch_all($result,MYSQLI_ASSOC);
 
-        $rs_result = mysqli_query($con, $total_Count_sql);  
-        $total_row = mysqli_fetch_all($rs_result);  
+        $rs_result = $con->query($total_Count_sql);
+        // $rs_result = mysqli_query($con, $total_Count_sql);  
+        // $total_row = mysqli_fetch_all($rs_result);  
         
-        $total_records = $total_row[0][0];  
-
+        $total_records = $rs_result->num_rows;  
+        dd($total_records);
         $total_pages = ceil($total_records / $limit); 
 
 
         $trow = ``;
 
-        foreach($row as $value)
+        while($row = $result->fetch_assoc())
         {
-
+          dd($row);
             $modalbutton = '';
-            if($value['prescription'] != '')
+            if($row['prescription'] != '')
             {
-              $modalbutton .= '<a href="javascript:void(0);" class="showPSKImage" data-toggle="modal" data-target="#PSKPrescriptionModal" data-imagepath="'.$value['prescription'].'">PHC Prescription</a>';
+              $modalbutton .= '<a href="javascript:void(0);" class="showPSKImage" data-toggle="modal" data-target="#PSKPrescriptionModal" data-imagepath="'.$row['prescription'].'">PHC Prescription</a>';
             }
 
             $updateButton = '';
             if($_SESSION['role'] == 'DH')
             {
-              $updateButton = '<a href="javascript:void(0);" data-toggle="modal" data-target="#UpdateDetailModal" class="update-prescription" data-id="'.$value['id'].'" data-name="'.$value['name'].'"  data-weight="'.$value['weight'].'"  data-height="'.$value['height'].'">Update</a>';
+              $updateButton = '<a href="javascript:void(0);" data-toggle="modal" data-target="#UpdateDetailModal" class="update-prescription" data-id="'.$row['id'].'" data-name="'.$row['name'].'"  data-weight="'.$row['weight'].'"  data-height="'.$row['height'].'">Update</a>';
             }
             $viewDHPrescription = '';
 
-            if($value['DH_prescription'] != '')
+            if($row['DH_prescription'] != '')
             {
-              $viewDHPrescription .= '<a href="javascript:void(0);" class="showDHImage" data-toggle="modal" data-target="#PSKPrescriptionModal" data-imagepath="'.$value['DH_prescription'].'">DH Prescription</a>';
+              $viewDHPrescription .= '<a href="javascript:void(0);" class="showDHImage" data-toggle="modal" data-target="#PSKPrescriptionModal" data-imagepath="'.$row['DH_prescription'].'">DH Prescription</a>';
             }
 
             $tr = "<tr>";
-            $tr .= "<td>".$value['registration_number']."</td>";
-            $tr .= "<td>".$value['name']."</td>";
-            $tr .= "<td>".$value['age']."</td>";
-            // $tr .= "<td>".$value['fatherHusband']."</td>";
-            // $tr .= "<td>".$value['mother']."</td>";
-            // $tr .= "<td>".$value['weight']."</td>";
-            // $tr .= "<td>".$value['height']."</td>";
-            $tr .= "<td>".$value['sex']."</td>";
-            // $tr .= "<td>".$value['aadhar']."</td>";
-            $tr .= "<td>".$value['mobile']."</td>";
-            $tr .= "<td>".$tahsils[$value['tahsil']]."</td>";
-            // $tr .= "<td>".$value['address']."</td>";
-            $tr .= "<td>".$vibhags[$value['vibhag']]."</td>";
+            $tr .= "<td>".$row['registration_number']."</td>";
+            $tr .= "<td>".$row['name']."</td>";
+            $tr .= "<td>".$row['age']."</td>";
+            // $tr .= "<td>".$row['fatherHusband']."</td>";
+            // $tr .= "<td>".$row['mother']."</td>";
+            // $tr .= "<td>".$row['weight']."</td>";
+            // $tr .= "<td>".$row['height']."</td>";
+            $tr .= "<td>".$row['sex']."</td>";
+            // $tr .= "<td>".$row['aadhar']."</td>";
+            $tr .= "<td>".$row['mobile']."</td>";
+            $tr .= "<td>".$tahsils[$row['tahsil']]."</td>";
+            // $tr .= "<td>".$row['address']."</td>";
+            $tr .= "<td>".$vibhags[$row['vibhag']]."</td>";
             
-            $tr .= "<td>".$patientStatusForListing[$value['patientStatus']]."</td>";
-            $tr .= "<td>".$value['created_at']."</td>";
+            $tr .= "<td>".$patientStatusForListing[$row['patientStatus']]."</td>";
+            $tr .= "<td>".$row['created_at']."</td>";
             $tr .= "<td> <div style='display:flex; flex-direction:column; font-size:10px;'>".$modalbutton.$updateButton.$viewDHPrescription."</div></td>";
             $tr .= "<tr>";
             $trow .= $tr;
