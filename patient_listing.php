@@ -60,15 +60,15 @@
         // $total_row = mysqli_fetch_all($rs_result);  
         
         $total_records = $rs_result->num_rows;  
-        dd($total_records);
+        // dd($total_records);
         $total_pages = ceil($total_records / $limit); 
 
 
-        $trow = ``;
+        $trow = '';
 
         while($row = $result->fetch_assoc())
         {
-          dd($row);
+          // dd($row);
             $modalbutton = '';
             if($row['prescription'] != '')
             {
