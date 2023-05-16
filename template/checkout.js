@@ -78,7 +78,7 @@ function add_data()
                   // console.log(data);
         if(data = 'Success')
         {
-          // print_form();
+          print_form();
         }else{
           const element = document.getElementById("preloader");
           element.remove();
