@@ -380,7 +380,10 @@ function uploadPrescriptionFile()
             $msg['msg'] =  "Sorry, your file was not uploaded.";
         // if everything is ok, try to upload file
         } else {
-        if (move_uploaded_file($_FILES["prescription"]["tmp_name"], $target_file)) {
+
+            $moved = move_uploaded_file($_FILES["prescription"]["tmp_name"], $target_file);
+            dd($moved);
+        if ($moved) {
 
             $msg['status'] = true;
             $msg['msg'] = "Success.";
