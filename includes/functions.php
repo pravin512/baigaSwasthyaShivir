@@ -331,7 +331,7 @@ function uploadPrescriptionFile()
 {
     
         $msg = ['status'=>false, 'msg'=>'', 'path'=>''];
-        $target_dir = "/home/bitnami/htdocs/baigaSwasthyaShivir/uploads/";
+        $target_dir = "uploads/";
         $target_file = $target_dir . time().basename($_FILES["prescription"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

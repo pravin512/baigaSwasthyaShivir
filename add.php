@@ -22,41 +22,13 @@ require 'includes/functions.php';
   // $otherDetials = $_POST['otherDetials'];
   $user_id = $_SESSION['userid'];
 
-
-  $path = '';
-  if (isset($_POST['submit'])) {
-    // echo "<p>" . $_POST['csv_file'] . " => file input successfull</p>";
-    $target_dir = "home/bitnami/htdocs/baigaSwasthyaShivir/uploads/";
-    $file_name = time().$_FILES['prescription']['name'];
-    $file_tmp = $_FILES['prescription']['tmp_name'];
-
-    if (move_uploaded_file($file_tmp, $target_dir . $file_name)) {
-        $path = $target_dir . $file_name;
-    }
-}
-
-//   function fileUpload () {
-//     $target_dir = "var/import/";
-//     $file_name = $_FILES['prescription']['name'];
-
-
-//     $file_tmp = $_FILES['prescription']['tmp_name'];
-
-//     if (move_uploaded_file($file_tmp, $target_dir.$file_name)) {
-//         echo "<h1>File Upload Success</h1>";
-//     }
-//     else {
-//         echo "<h1>File Upload not successfull</h1>";
-//     }
-// }
-
-  // $prescription = uploadPrescriptionFile();
-  // if($prescription['status'] == false)
-  // {
-  //   echo $prescription['msg'];
-  //   exit(0);
-  // }
-  // $path = $prescription['path'];
+  $prescription = uploadPrescriptionFile();
+  if($prescription['status'] == false)
+  {
+    echo $prescription['msg'];
+    exit(0);
+  }
+  $path = $prescription['path'];
   // $path = "/test";
 
 $sql="INSERT INTO `patient_data`(`name`, `age`, `fatherHusband`, `mother`, `weight`, `height`, `sex`, `aadhar`, `mobile`, `tahsil`, `address`, `vibhag`, `otherdisease`, `patientStatus`, `created_at`, `updated_at`, `prescription`, `added_by`, `registration_number`, `patient_status_when_other`) VALUES ('".$name."','".$age."','".$father_husbandName."','".$mother."','".$weight."','".$height."','".$sex."','".$aadhar."','".$mobile."','".$tahsil."','".$hitgrahAddress."','".$vibhag."','".$anyaRog."','".$patientStatus."', NOW(), NOW(),'".$path."',".$user_id.", '".$registrationNo."','".$patientStatusOther."')";
