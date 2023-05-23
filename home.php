@@ -31,7 +31,7 @@ $content .= '
       <div class="col-md-12 col-lg-12" style="box-shadow: 0 4px 25px -4px #9da5ab; ">
         <h4 class="mb-3 text-center">विशेष रूप से कमजोर जनजाति समूह बैगा का स्वास्थ्य परीक्षण शिविर</h4>
         <hr class="my-4">
-        <form enctype="multipart/form-data" class="needs-validation addfrm" id="addfrm" action="'.$site_url.'/add.php" novalidate method="POST">
+        <form class="needs-validation addfrm" id="addfrm" action="'.$site_url.'/add.php" novalidate method="POST" enctype="multipart/form-data" >
           <div class="row g-3">
             <div class="col-4">
               <label for="registrationNo" class="form-label">पंजीयन क्रमांक *</label>
