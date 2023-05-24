@@ -99,6 +99,7 @@ while($row = $result->fetch_assoc())
     }
     
     $tr = "<tr>";
+    $tr .= "<td><input type='checkbox' value='".$row['id']."' name='patient_id' class='patient_id'></td>";
     $tr .= "<td>".$row['registration_number']."</td>";
     $tr .= "<td>".$row['name']."</td>";
     $tr .= "<td>".$row['age']."</td>";

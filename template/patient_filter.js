@@ -128,3 +128,37 @@ function update_data()
       }  
     });
   }
+
+function delete_patients()
+{
+  var checkboxes = document.getElementsByClassName(".patient_id");
+  var patientids = [];
+  for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked) {
+          patientids.push();
+      }
+  }
+
+  var formData = new FormData(); 
+
+  formData.append('patients_ids', patientids);
+
+  $.ajax({
+    method:"POST",
+    url:"deletePatients.php",    
+    data: formData,  
+    cache: false,
+    contentType: false,
+    processData: false,   
+    success: function(res){         
+      alert(res);
+    },
+    error: function(xhr, status, error) {
+      alert("Error : "+xhr.responseText);
+    }  
+  });
+}
+
+$("#deletePatient").on('click', ()=>{
+  delete_patients();
+});
