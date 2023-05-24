@@ -131,9 +131,13 @@ function update_data()
 
 function delete_patients()
 {
-  var checkboxes = document.getElementsByClassName(".patient_id");
+  var checkboxes = $('.patient_id:checkbox:checked');
   var patientids = [];
+  console.log(checkboxes);
   for (var i = 0; i < checkboxes.length; i++) {
+  console.log(checkboxes[i].value);
+  console.log(checkboxes[i].checked);
+
       if (checkboxes[i].checked) {
           patientids.push(checkboxes[i].value);
       }
