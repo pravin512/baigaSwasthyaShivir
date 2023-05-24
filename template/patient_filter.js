@@ -143,14 +143,14 @@ function delete_patients()
       }
   }
 console.log(patientids);
-  var formData = new FormData(); 
+  // var formData = new FormData(); 
 
-  formData.append('patients_ids', patientids);
+  // formData.append('patients_ids', patientids);
 
   $.ajax({
     method:"POST",
     url:"deletePatients.php",    
-    data: formData,  
+    data: {'patients_ids':patientids},  
     cache: false,
     contentType: false,
     processData: false,   
