@@ -142,7 +142,6 @@ $content .='
                 <tr>
                 <th scope="col"><input type="checkbox" onchange="checkAll(this)" name="patient_ids[]" /></td>
                 <th scope="col">पंजीयन क्र.</th>
-                <th scope="col">पंजीयन क्र.</th>
                 <th scope="col">नाम</th>
                 <th scope="col">उम्र</th>
                 <th scope="col">लिंग</th>
