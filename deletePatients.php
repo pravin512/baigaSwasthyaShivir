@@ -5,7 +5,7 @@
  require 'includes/constants.php';
 
 
-$sql="DELETE * FROM `patient_data` WHERE `id` = ".$_POST['patients_ids'];
+$sql="DELETE * FROM `patient_data` WHERE `id` IN (".$_POST['patients_ids'].")";
 
 $result = $con->query($sql);
 
