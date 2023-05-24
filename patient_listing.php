@@ -88,6 +88,7 @@
             }
 
             $tr = "<tr>";
+            $tr .= "<td><input type='checkbox' value='".$row['id']."' name='patient_id' class='patient_id'></td>";
             $tr .= "<td>".$row['registration_number']."</td>";
             $tr .= "<td>".$row['name']."</td>";
             $tr .= "<td>".$row['age']."</td>";
@@ -139,6 +140,8 @@ $content .='
             <table class="table table-striped table-sm">
             <thead>
                 <tr>
+                <th scope="col"><input type="checkbox" onchange="checkAll(this)" name="patient_ids[]" /></td>
+                <th scope="col">पंजीयन क्र.</th>
                 <th scope="col">पंजीयन क्र.</th>
                 <th scope="col">नाम</th>
                 <th scope="col">उम्र</th>
@@ -240,7 +243,7 @@ $content .='
           <script src="'.$site_url.'/template/jquery-3.6.3.min.js"></script>
           <script src="'.$site_url.'/template/assets/js/bootstrap.min.js"></script>
           
-          <script src="'.$site_url.'/template/patient_filter.js" ></script>
+          <script src="'.$site_url.'/template/patient_filter.js" ></script>        
           <script>
             $(".showPSKImage").on("click", function (event) {
                 let framePath = $(this).attr("data-imagepath");
@@ -264,6 +267,26 @@ $content .='
           
           
         })
+
+
+        // select check boxes
+        function checkAll(ele) {
+            var checkboxes = document.getElementsByTagName("input");
+            if (ele.checked) {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].type == "checkbox") {
+                        checkboxes[i].checked = true;
+                    }
+                }
+            } else {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    console.log(i)
+                    if (checkboxes[i].type == "checkbox") {
+                        checkboxes[i].checked = false;
+                    }
+                }
+            }
+        }
           </script>
   </body>
 </html>
