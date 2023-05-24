@@ -135,7 +135,7 @@ function delete_patients()
   var patientids = [];
   for (var i = 0; i < checkboxes.length; i++) {
       if (checkboxes[i].checked) {
-          patientids.push();
+          patientids.push(checkboxes[i].value);
       }
   }
 
@@ -160,5 +160,6 @@ function delete_patients()
 }
 
 $("#deletePatient").on('click', ()=>{
+  console.log('delete patient clicked');
   delete_patients();
 });
