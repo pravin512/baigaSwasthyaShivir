@@ -138,7 +138,7 @@ function delete_patients()
           patientids.push(checkboxes[i].value);
       }
   }
-
+console.log(patientids);
   var formData = new FormData(); 
 
   formData.append('patients_ids', patientids);
